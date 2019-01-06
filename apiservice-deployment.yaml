@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: userservice
+  name: apiservice
 spec:
   selector:
-    app: userservice
+    app: apiservice
   ports:
   - protocol: "TCP"
     port: 8080
@@ -15,22 +15,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: userservice-deployment
+  name: apiservice-deployment
   labels:
-    app: userservice
+    app: apiservice
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: userservice
+      app: apiservice
   template:
     metadata:
       labels:
-        app: userservice
+        app: apiservice
     spec:
       containers:
-      - name: userservice
-        image: skiprope/userservice:latest
+      - name: apiservice
+        image: skiprope/apiservice:latest
         ports:
         - containerPort: 8080
           name: server

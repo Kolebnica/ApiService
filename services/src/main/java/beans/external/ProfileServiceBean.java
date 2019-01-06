@@ -1,11 +1,12 @@
 package beans.external;
 
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
-import entities.User;
 import org.eclipse.microprofile.metrics.annotation.Counted;
+import pojo.Profile;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import java.util.Optional;
@@ -18,24 +19,52 @@ public class ProfileServiceBean {
     private Optional<WebTarget> profileServiceWebTarget;
 
     @Counted(name = "callProfileService", monotonic = true)
-    public User getUserProfile(int profileId) {
+    public Response getProfiles() {
         if(profileServiceWebTarget.isPresent()) {
             WebTarget t = profileServiceWebTarget.get();
-            // TODO
-            // Profile p = t.path("api/userprofile/" + profileId).request().get(Profile.class);
 
-            return null;
+            return t.path("api/profiles").request().get();
         }
-        // no service found
         return null;
     }
 
-    public boolean createUserProfile(int profileId) {
-        if (profileServiceWebTarget.isPresent()) {
+    @Counted(name = "callProfileService", monotonic = true)
+    public Response getProfileById(int profileId) {
+        if(profileServiceWebTarget.isPresent()) {
             WebTarget t = profileServiceWebTarget.get();
-            Response resp = t.path("api/profiles/" + profileId).request().post(null);
-            return (resp.getStatus() == 201);
+
+            return t.path("api/profiles/" + profileId).request().get();
         }
-        return false;
+        return null;
+    }
+
+    @Counted(name = "callProfileService", monotonic = true)
+    public Response createProfile(int profileId) {
+        if(profileServiceWebTarget.isPresent()) {
+            WebTarget t = profileServiceWebTarget.get();
+
+            return t.path("api/profiles/" + profileId).request().post(null);
+        }
+        return null;
+    }
+
+    @Counted(name = "callProfileService", monotonic = true)
+    public Response updateProfile(int profileId, Profile profile) {
+        if(profileServiceWebTarget.isPresent()) {
+            WebTarget t = profileServiceWebTarget.get();
+
+            return t.path("api/profiles/" + profileId).request().put(Entity.json(profile));
+        }
+        return null;
+    }
+
+    @Counted(name = "callProfileService", monotonic = true)
+    public Response deleteProfile(int profileId) {
+        if(profileServiceWebTarget.isPresent()) {
+            WebTarget t = profileServiceWebTarget.get();
+
+            return t.path("api/profiles/" + profileId).request().delete();
+        }
+        return null;
     }
 }

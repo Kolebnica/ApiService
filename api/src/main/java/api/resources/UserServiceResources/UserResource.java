@@ -1,7 +1,7 @@
-package api.resources;
-
+package api.resources.UserServiceResources;
 
 import beans.crud.UserBean;
+import beans.external.UserServiceBean;
 import com.kumuluz.ee.logs.cdi.Log;
 import entities.User;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,37 +26,17 @@ import javax.ws.rs.core.Response;
 public class UserResource {
 
     @Inject
-    UserBean userBean;
+    UserServiceBean userServiceBean;
 
-    @Operation(
-            summary = "Get users",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "List of users"),
-            }
-    )
     @GET
     public Response getUsers() {
-        return Response.ok(userBean.getAllUsers()).build();
+        return userServiceBean.getUsers();
     }
 
-    @Operation(
-            summary = "Get user",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "User with given ID"),
-                    @ApiResponse(responseCode = "404", description = "User with ID not found"),
-            },
-            parameters = {
-                    @Parameter(name = "userId", in = ParameterIn.PATH),
-            }
-    )
+
     @GET
     @Path("{userId}")
     public Response getUserById(@PathParam("userId") int userId) {
-        User a = userBean.getUser(userId);
-        if (a == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-
-        return Response.ok(a).build();
+        return userServiceBean.getUserById(userId);
     }
 }

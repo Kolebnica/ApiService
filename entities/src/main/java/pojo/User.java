@@ -1,35 +1,13 @@
-package entities;
+package pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+public class User {
 
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlID;
-import java.io.Serializable;
-
-@Entity(name = "users")
-@NamedQueries(value = {
-    @NamedQuery(name = "User.getByUsername", query = "SELECT u FROM users u WHERE u.username = :username"),
-    @NamedQuery(name = "User.getUsers", query = "SELECT u FROM users u")
-})
-public class User implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String name;
-
     private String surname;
-
-    @Column(unique = true)
     private String username;
-
-    @JsonIgnore
     private String password;
-
     private String email;
-
 
     public int getId() {
         return id;

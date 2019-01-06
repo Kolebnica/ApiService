@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>skiprope</groupId>
-    <artifactId>userservice</artifactId>
+    <artifactId>apiservice</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 

@@ -9,8 +9,6 @@ kumuluzee:
 
   health:
     checks:
-      data-source-health-check:
-        jndi-name: jdbc/apiservice
       disk-space-health-check:
         threshold: 100000000
 

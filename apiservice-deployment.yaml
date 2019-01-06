@@ -7,8 +7,8 @@ spec:
     app: apiservice
   ports:
   - protocol: "TCP"
-    port: 8080
-    targetPort: 8080
+    port: 8084
+    targetPort: 8084
     nodePort: 30000
   type: NodePort
 ---
@@ -32,7 +32,7 @@ spec:
       - name: apiservice
         image: skiprope/apiservice:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 8084
           name: server
           protocol: TCP
         env:
@@ -40,12 +40,6 @@ spec:
             value: http://consul:8500  
           - name: KUMULUZEE_CONFIG_CONSUL_AGENT
             value: http://consul:8500
-          - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-            value: jdbc:postgresql://postgres-us:5432/postgres
-          - name: KUMULUZEE_DATASOURCES0_USERNAME
-            value: postgres
-          - name: KUMULUZEE_DATASOURCES0_PASSWORD
-            value: skiprope
           - name: SKIPROPECONFIGS_HEALTH_CONSULURL
             value: http://consul:8500/v1/status/leader
         livenessProbe:

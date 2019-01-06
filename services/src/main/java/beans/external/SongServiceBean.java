@@ -8,6 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Optional;
 
@@ -84,6 +85,26 @@ public class SongServiceBean {
             WebTarget t = songServiceWebTarget.get();
 
             return t.path("api/song/"+songId).request().put(Entity.json(song));
+        }
+        return null;
+    }
+
+    @Counted(name = "callSongService", monotonic = true)
+    public Response uploadStream(byte[] stream) {
+        if(songServiceWebTarget.isPresent()) {
+            WebTarget t = songServiceWebTarget.get();
+
+            return t.path("api/stream").request().post(Entity.entity(stream, MediaType.APPLICATION_OCTET_STREAM));
+        }
+        return null;
+    }
+
+    @Counted(name = "callSongService", monotonic = true)
+    public Response getStream(int streamId) {
+        if(songServiceWebTarget.isPresent()) {
+            WebTarget t = songServiceWebTarget.get();
+
+            return t.path("api/stream/"+streamId).request().get();
         }
         return null;
     }

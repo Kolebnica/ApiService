@@ -2,10 +2,10 @@ package api.resources.UserServiceResources;
 
 import beans.external.UserServiceBean;
 import com.kumuluz.ee.logs.cdi.Log;
-import entities.User;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
+import pojo.User;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

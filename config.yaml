@@ -1,0 +1,36 @@
+kumuluzee:
+  name: apiservice
+  version: 1.0.0
+  env:
+    name: dev
+  server:
+    http:
+      port: 8084
+
+  health:
+    checks:
+      data-source-health-check:
+        jndi-name: jdbc/apiservice
+      disk-space-health-check:
+        threshold: 100000000
+
+  metrics:
+    web-instrumentation:
+      - name: metrics-endpoint
+        url-pattern: /api/metadata/*
+        status-codes: "200, 500"
+    servlet:
+      enabled: true
+
+  discovery:
+      consul:
+        agent: http://localhost:8500
+
+  config:
+    consul:
+      agent: http://localhost:8500
+
+# Settings and configurations
+skiprope-configs:
+  health:
+    consul-url: http://localhost:8500/v1/status/leader

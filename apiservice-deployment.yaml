@@ -36,12 +36,16 @@ spec:
           name: server
           protocol: TCP
         env:
-          - name: KUMULUZEE_DISCOVERY_CONSUL_AGENT
-            value: http://consul:8500  
-          - name: KUMULUZEE_CONFIG_CONSUL_AGENT
-            value: http://consul:8500
-          - name: SKIPROPECONFIGS_HEALTH_CONSULURL
-            value: http://consul:8500/v1/status/leader
+          - name: KUMULUZEE_DISCOVERY_ETCD_HOSTS
+            value: http://etcd:2379  
+          - name: KUMULUZEE_CONFIG_ETCD_HOSTS
+            value: http://etcd:2379
+          - name: SKIPROPECONFIGS_HEALTH_ETCDURL
+            value: http://etcd:2379/health
+          - name: KUMULUZEE_SERVER_BASEURL
+            value: http://apiservice:8082
+          - name: KUMULUZEE_DISCOVERY_CLUSTER
+            value: skiprope
         livenessProbe:
           httpGet:
             path: /health
